@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping ("/api/categoria")
@@ -31,6 +33,38 @@ public class CategoriaController {
 
     @PostMapping
     public ResponseEntity<CategoriaModel> post(@Valid @RequestBody CategoriaModel categoriaModel) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(categoriaRepository.save(categoriaModel));
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(categoriaRepository.save(categoriaModel));
+    }
+
+    @PutMapping
+    public ResponseEntity<CategoriaModel> put(@Valid @RequestBody CategoriaModel categoriaModel) {
+        return categoriaRepository.findById(categoriaModel.getId())
+                .map(resposta -> ResponseEntity.status(HttpStatus.CREATED)
+                        .body(categoriaRepository.save(categoriaModel)))
+                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+    }
+
+    @ResponseStatus (HttpStatus.NO_CONTENT)
+    @DeleteMapping ("/{id}")
+    public void delete(@PathVariable Long id) {
+        Optional<CategoriaModel> categoriaModel = categoriaRepository.findById(id);
+
+        if (categoriaModel.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+
+        categoriaRepository.deleteById(id);
+    }
+
+    @GetMapping ("/genero/{genero}")
+    public ResponseEntity<List<CategoriaModel>> getByGenero(@PathVariable String genero) {
+        return ResponseEntity.ok(categoriaRepository
+                .findAllByGeneroContainingIgnoreCase(genero));
+    }
+
+    @GetMapping ("/nome/{nome}")
+    public ResponseEntity<List<CategoriaModel>> getByNome(@PathVariable String nome) {
+        return ResponseEntity.ok(categoriaRepository
+                .findAllByNomeContainingIgnoreCase(nome));
     }
 }
