@@ -27,6 +27,13 @@ public class ProdutoModel {
     @NotNull
     private int quantidade;
 
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    private CategoriaModel categoriaModel;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private UsuarioModel usuarioModel;
 
     public Long getId() {
         return id;
@@ -66,5 +73,21 @@ public class ProdutoModel {
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
+    }
+
+    public CategoriaModel getCategoriaModel() {
+        return categoriaModel;
+    }
+
+    public void setCategoriaModel(CategoriaModel categoriaModel) {
+        this.categoriaModel = categoriaModel;
+    }
+
+    public UsuarioModel getUsuarioModel() {
+        return usuarioModel;
+    }
+
+    public void setUsuarioModel(UsuarioModel usuarioModel) {
+        this.usuarioModel = usuarioModel;
     }
 }

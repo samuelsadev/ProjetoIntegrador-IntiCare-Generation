@@ -1,9 +1,12 @@
 package com.generation.inticare.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+
+import java.util.List;
 
 @Entity
 @Table (name = "tb_usuario")
@@ -26,6 +29,10 @@ public class UsuarioModel {
     private String senha;
 
     private String foto;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "nome", cascade = CascadeType.REMOVE)
+    @JsonIgnoreProperties("nome")
+    private List<ProdutoModel> produtoModels;
 
     public Long getId() {
         return id;
@@ -65,5 +72,13 @@ public class UsuarioModel {
 
     public void setFoto(String foto) {
         this.foto = foto;
+    }
+
+    public List<ProdutoModel> getProdutoModels() {
+        return produtoModels;
+    }
+
+    public void setProdutoModels(List<ProdutoModel> produtoModels) {
+        this.produtoModels = produtoModels;
     }
 }

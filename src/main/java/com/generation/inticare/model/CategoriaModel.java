@@ -1,8 +1,12 @@
 package com.generation.inticare.model;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+
+import java.util.List;
 
 @Entity
 @Table(name = "tb_categoria")
@@ -19,6 +23,10 @@ public class CategoriaModel {
     @NotBlank(message = "O genero é obrigatorio!")
     @Size(max = 100, message = "O texto deve conter até 100 caracteres")
     private String genero;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "nome", cascade = CascadeType.REMOVE)
+    @JsonIgnoreProperties("nome")
+    private List<ProdutoModel> produtoModels;
 
     public Long getId() {
         return id;
@@ -42,5 +50,13 @@ public class CategoriaModel {
 
     public void setGenero(String genero) {
         this.genero = genero;
+    }
+
+    public List<ProdutoModel> getProdutoModels() {
+        return produtoModels;
+    }
+
+    public void setProdutoModels(List<ProdutoModel> produtoModels) {
+        this.produtoModels = produtoModels;
     }
 }
