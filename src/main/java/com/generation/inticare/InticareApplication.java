@@ -9,5 +9,4 @@ public class InticareApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(InticareApplication.class, args);
 	}
-
 }
