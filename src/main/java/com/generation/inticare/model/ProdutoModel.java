@@ -1,5 +1,7 @@
 package com.generation.inticare.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -15,7 +17,8 @@ public class ProdutoModel {
 
     @NotBlank(message = "O nome do produto é obrigatorio!")
     @Size(max = 100, message = "O texto deve conter até 100 caracteres")
-    private String nome;
+    @Column(name = "nome")
+    private String nomeProduto;
 
     @NotBlank(message = "A descrição do produto é obrigatoria!")
     @Size(max = 255, message = "O texto deve conter até 255 caracteres")
@@ -43,12 +46,12 @@ public class ProdutoModel {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomeProduto() {
+        return nomeProduto;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomeProduto(String nomeProduto) {
+        this.nomeProduto = nomeProduto;
     }
 
     public String getDescricao() {

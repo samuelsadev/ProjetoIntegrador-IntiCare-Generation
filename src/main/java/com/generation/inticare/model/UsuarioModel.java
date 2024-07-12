@@ -30,8 +30,8 @@ public class UsuarioModel {
 
     private String foto;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "nome", cascade = CascadeType.REMOVE)
-    @JsonIgnoreProperties("nome")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "nomeProduto", cascade = CascadeType.REMOVE)
+    @JsonIgnoreProperties("nomeProduto")
     private List<ProdutoModel> produtoModels;
 
     public Long getId() {
