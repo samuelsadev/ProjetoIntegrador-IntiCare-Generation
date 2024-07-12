@@ -13,7 +13,7 @@ public class CategoriaModel {
     private Long id;
 
     @NotBlank(message = "O nome da categoria é obrigatorio!")
-    @Size(max = 250, message = "O texto deve conter até 250 caracteres")
+    @Size(max = 255, message = "O texto deve conter até 255 caracteres")
     private String nome;
 
     @NotBlank(message = "O genero é obrigatorio!")
