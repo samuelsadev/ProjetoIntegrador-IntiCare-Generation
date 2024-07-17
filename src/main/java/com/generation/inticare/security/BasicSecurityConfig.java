@@ -69,7 +69,6 @@ public class BasicSecurityConfig {
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class)
                 .httpBasic(withDefaults());
-
         return http.build();
     }
 }
