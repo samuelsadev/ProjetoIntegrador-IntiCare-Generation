@@ -26,7 +26,7 @@ public class UsuarioModel {
     private String usuario;
 
     @NotBlank(message = "O nome do produto é obrigatorio!")
-    @Size(min = 7, max = 55, message = "O texto deve conter de 7 até 55 caracteres")
+    @Size(min = 7, message = "O texto deve conter no mínimo 7caracteres")
     private String senha;
 
     private String foto;
