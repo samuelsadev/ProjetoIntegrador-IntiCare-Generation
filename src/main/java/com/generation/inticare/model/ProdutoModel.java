@@ -35,7 +35,7 @@ public class ProdutoModel {
     private CategoriaModel categoriaModel;
 
     @ManyToOne
-    @JoinColumn(name = "usuario_id")
+    @JsonIgnoreProperties("produto")
     private UsuarioModel usuarioModel;
 
     public Long getId() {
