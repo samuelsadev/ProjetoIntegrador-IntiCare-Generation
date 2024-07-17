@@ -22,17 +22,18 @@ public class UsuarioModel {
 
     @NotBlank(message = "O email do usuário é obrigatorio!")
     @Size(max = 255, message = "O texto deve conter até 255 caracteres")
-    private String email;
+    @Column(name = "email")
+    private String usuario;
 
     @NotBlank(message = "O nome do produto é obrigatorio!")
-    @Size(min = 7, max = 55, message = "O texto deve conter de 7 até 55 caracteres")
+    @Size(min = 7, message = "O texto deve conter no mínimo 7caracteres")
     private String senha;
 
     private String foto;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "nomeProduto", cascade = CascadeType.REMOVE)
-    @JsonIgnoreProperties("nomeProduto")
-    private List<ProdutoModel> produtoModels;
+    @OneToMany(mappedBy = "usuarioModel", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @JsonIgnoreProperties("usuarioModel")
+    private List<ProdutoModel> produtos;
 
     public Long getId() {
         return id;
@@ -50,12 +51,12 @@ public class UsuarioModel {
         this.nome = nome;
     }
 
-    public String getEmail() {
-        return email;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
     public String getSenha() {
@@ -74,11 +75,11 @@ public class UsuarioModel {
         this.foto = foto;
     }
 
-    public List<ProdutoModel> getProdutoModels() {
-        return produtoModels;
+    public List<ProdutoModel> getProdutos() {
+        return produtos;
     }
 
-    public void setProdutoModels(List<ProdutoModel> produtoModels) {
-        this.produtoModels = produtoModels;
+    public void setProdutos(List<ProdutoModel> produtos) {
+        this.produtos = produtos;
     }
 }
